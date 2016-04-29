@@ -4,29 +4,63 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');        // call express
-var app        = express();                 // define our app using express
+var express = require('express');        // call express
+var app = express();                 // define our app using express
 var bodyParser = require('body-parser');
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 5500;        // set our port
 
-var mongoose    = require('mongoose');
+// database connection
+var mongoose = require('mongoose');
 mongoose.connect('mongodb://test:test@ds041150.mlab.com:41150/proangularjs'); // connect to our database
-var Product        = require('./app/models/product');
+var Product = require('./app/models/product');
 
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
-// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
+// middleware to use for all requests
+router.use(function (req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
 });
+
+// test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+router.get('/', function (req, res) {
+    res.json({message: 'hooray! welcome to our api!'});
+});
+
+router.route('/products')
+    .get(function (req, res) {
+        console.log("in get");
+        Product.find(function (err, products) {
+            console.log("in find");
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(products);
+            }
+        });
+        console.log("after find");
+        res.send()
+    });
+
+router.route('/products/:product_id')
+    .get(function (req, res) {
+        Product.findById(req.params.product_id, function (err, product) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(product);
+            }
+        });
+    });
 
 // more routes for our API will happen here
 
