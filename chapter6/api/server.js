@@ -15,10 +15,8 @@ app.use(bodyParser.json());
 
 var port = process.env.PORT || 5500;        // set our port
 
-// database connection
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://test:test@ds041150.mlab.com:41150/proangularjs'); // connect to our database
-var Product = require('./app/models/product');
+// database stuff
+var MongoClient = require('mongodb').MongoClient;
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -36,33 +34,24 @@ router.get('/', function (req, res) {
     res.json({message: 'hooray! welcome to our api!'});
 });
 
+// more routes for our API will happen here
+
 router.route('/products')
     .get(function (req, res) {
-        console.log("in get");
-        Product.find(function (err, products) {
-            console.log("in find");
-            if (err) {
-                res.send(err);
-            } else {
-                res.json(products);
-            }
-        });
-        console.log("after find");
-        res.send()
-    });
 
-router.route('/products/:product_id')
-    .get(function (req, res) {
-        Product.findById(req.params.product_id, function (err, product) {
+
+        MongoClient.connect('mongodb://test:test@ds041150.mlab.com:41150/proangularjs', function(err, db) {
             if (err) {
-                res.send(err);
-            } else {
-                res.json(product);
+                throw err;
             }
+            db.collection('product').find().toArray(function(err, result) {
+                if (err) {
+                    throw err;
+                }
+                res.json(result);
+            });
         });
     });
-
-// more routes for our API will happen here
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
