@@ -6,12 +6,6 @@
 // call the packages we need
 var express = require('express');        // call express
 var app = express();                 // define our app using express
-var bodyParser = require('body-parser');
-
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
 var port = process.env.PORT || 5500;        // set our port
 
@@ -40,11 +34,11 @@ router.route('/products')
     .get(function (req, res) {
 
 
-        MongoClient.connect('mongodb://test:test@ds041150.mlab.com:41150/proangularjs', function(err, db) {
+        MongoClient.connect('mongodb://test:pass@ds041150.mlab.com:41150/proangularjs', function(err, db) {
             if (err) {
                 throw err;
             }
-            db.collection('product').find().toArray(function(err, result) {
+            db.collection('Product').find().toArray(function(err, result) {
                 if (err) {
                     throw err;
                 }
