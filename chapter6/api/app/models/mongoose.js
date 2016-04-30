@@ -22,4 +22,9 @@ db.once('open', function() {
             console.log(err);
         }
     });
+
+    // var newProduct = new Product({name: "somenewproduct"});
+    // newProduct.save(function (err, product) {
+    //     if (err) return console.error(err);
+    // });
 });
