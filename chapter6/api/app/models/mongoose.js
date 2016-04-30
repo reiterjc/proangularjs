@@ -6,7 +6,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 
     var productSchema = new mongoose.Schema({
-        _id: String,
         category: String,
         description: String,
         name: String,
@@ -23,8 +22,12 @@ db.once('open', function() {
         }
     });
 
-    // var newProduct = new Product({name: "somenewproduct"});
+    // var newProduct = new Product({category: 'chess', description: 'blah', name: 'somenewproduct', price: 20});
     // newProduct.save(function (err, product) {
-    //     if (err) return console.error(err);
+    //     if (!err) {
+    //         console.log("added: " + product);
+    //     } else {
+    //         console.log(err);
+    //     }
     // });
 });
