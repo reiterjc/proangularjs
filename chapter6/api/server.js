@@ -38,7 +38,7 @@ router.route('/products')
             if (err) {
                 throw err;
             }
-            db.collection('Product').find().toArray(function(err, result) {
+            db.collection('products').find().toArray(function(err, result) {
                 if (err) {
                     throw err;
                 }
