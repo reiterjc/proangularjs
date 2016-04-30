@@ -12,7 +12,7 @@ db.once('open', function() {
         price: Number
     });
 
-    var Product = mongoose.model('Product', productSchema);
+    var Product = mongoose.model('Products', productSchema, 'Products');
 
     Product.find(function (err, products) {
         if (!err) {
