@@ -1,0 +1,8 @@
+{
+  "name": "node-api",
+  "main": "server.js",
+  "dependencies": {
+    "mongodb": "2.1.18",
+    "mongoose": "4.4.14"
+  }
+}
