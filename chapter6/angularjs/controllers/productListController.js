@@ -10,7 +10,7 @@ angular.module("sportsStore")
 
         $scope.isSelected = function(category) {
             return category == selectedCategory;
-        }
+        };
 
         $scope.showProduct = function(product) {
             return selectedCategory == null || product.category == selectedCategory;
