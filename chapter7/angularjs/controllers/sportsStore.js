@@ -7,6 +7,7 @@ angular.module('sportsStore')
                 $scope.data.products = data;
             })
             .error(function(error) {
+                console.log(error);
                 $scope.data.error = error;
             });
     });
