@@ -1,0 +1,9 @@
+<style>
+    .navbar-right {float: right !important; margin-right: 5px;}
+    .navbar-text {margin-right: 10px;}
+</style>
+<div class="navbar-right">
+    <div class="navbar-text">
+        <b>Your cart:</b> {{getItemCount()}} item(s), {{getTotal() | currency}}
+    </div>
+</div>

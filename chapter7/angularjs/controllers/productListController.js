@@ -1,6 +1,6 @@
 angular.module("sportsStore")
 
-    .controller("productListCtrl", function($scope) {
+    .controller("productListCtrl", function($scope, cart) {
 
         var selectedCategory = null;
 
@@ -14,6 +14,10 @@ angular.module("sportsStore")
 
         $scope.showProduct = function(product) {
             return selectedCategory == null || product.category == selectedCategory;
+        };
+
+        $scope.addProductToCart = function(product) {
+            cart.addProduct(product.id, product.name, product.price);
         };
 
     });
