@@ -3,13 +3,15 @@ angular.module("cart", [])
     .factory("cart", function() {
         var cartData = [];
 
-        var addProduct = new function (id, name, price) {
+        var addProduct = function(id, name, price) {
             var addedToExistingItem = false;
 
             for (var i = 0; i < cartData.length; i++) {
                 if (cartData[i].id == id) {
+                    console.log("existing");
                     cartData[i].count++;
                     addedToExistingItem = true;
+                    break;
                 }
             }
             if (!addedToExistingItem) {
@@ -17,7 +19,7 @@ angular.module("cart", [])
             }
         };
 
-        var removeProduct = new function (id) {
+        var removeProduct = function(id) {
             for (var i = 0; i < cartData.length; i++) {
                 if (cartData[i].id == id) {
                     cartData.splice(i, 1);
@@ -26,7 +28,7 @@ angular.module("cart", [])
             }
         };
 
-        var getProducts = new function () {
+        var getProducts = function() {
             return cartData;
         };
 
@@ -44,7 +46,7 @@ angular.module("cart", [])
             restrict: "E",
             templateUrl: "components/cart/cartSummary.html",
             controller: function ($scope) {
-                var cartData = cart.getProducts;
+                var cartData = cart.getProducts();
 
                 $scope.getTotal = function() {
                     var total = 0;
